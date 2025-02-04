@@ -8,6 +8,7 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME
       - MONGO_INITDB_ROOT_PASSWORD
+    restart: 'unless-stopped'
   server:
     build: .
     ports:
@@ -19,6 +20,9 @@ services:
     environment:
       - MONGO_PWD
       - MONGO_USERNAME
+    depends_on:
+      - db
+    restart: on-failure
 volumes:
   mydb:
     external: true
